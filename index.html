@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Reporting</title>
+    <style>
+        /* Enhanced Typography */
+        body {
+            font-family: 'Roboto', sans-serif; /* Modern font */
+            background: linear-gradient(135deg, #1a1a1a, #333); /* Gradient background */
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+            line-height: 1.6; /* Improve readability */
+            transition: background 0.3s ease; /* Smooth transition for dark mode */
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #000080;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text shadow */
+            position: sticky; /* Make header sticky */
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease; /* Smooth transition for dark mode */
+        }
+
+        /* Container Styling */
+        .container {
+            padding: 20px;
+            border-radius: 10px; /* Add rounded corners */
+            background-color: rgba(255, 255, 255, 0.1); /* Add a subtle white background */
+            max-width: 1200px; /* Limit container width */
+            margin: auto; /* Center container */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+            transition: background-color 0.3s ease; /* Smooth transition for dark mode */
+        }
+
+        /* Card Layout */
+        .card {
+            background-color: #444;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px; /* Add rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+            transition: transform 0.3s ease; /* Smooth transition for hover effect */
+        }
+
+        .card:hover {
+            transform: translateY(-10px); /* Lift card on hover */
+        }
+
+        /* Form Group Styling */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #555;
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effect */
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            background-color: #444; /* Change background on focus */
+            transform: scale(1.02); /* Slightly enlarge on focus */
+        }
+
+        /* Button Styling */
+        .form-group button {
+            padding: 10px 15px;
+            background-color: #000080;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effect */
+        }
+
+        .form-group button:hover {
+            background-color: #0000cd;
+            transform: scale(1.05); /* Slightly enlarge on hover */
+        }
+
+        /* MDT Styling */
+        #mdt {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #333;
+            border: 1px solid #555;
+        }
+
+        .mdt-header {
+            background-color: #000080;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .mdt-content {
+            padding: 10px;
+        }
+
+        /* Report Styling */
+        .report {
+            background-color: #444;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #555;
+            border-radius: 5px; /* Add rounded corners */
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #333;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #555;
+            border-radius: 10px;
+            border: 3px solid #333;
+        }
+
+        /* Dark Mode Toggle */
+        .dark-mode {
+            background: linear-gradient(135deg, #333, #1a1a1a); /* Dark mode gradient */
+        }
+
+        .dark-mode header {
+            background-color: #0000cd;
+        }
+
+        .dark-mode .container {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .dark-mode .card {
+            background-color: #555;
+        }
+
+        /* Media Queries for Responsive Design */
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+            .form-group input, .form-group textarea, .form-group select {
+                padding: 6px;
+            }
+            .form-group button {
+                padding: 8px 12px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Emergency Reporting</h1>
+    </header>
+    <div class="container">
+        <div class="form-group">
+            <label for="reportType">Report Type:</label>
+            <select id="reportType" onchange="showFireOptions()">
+                <option value="">Select Type</option>
+                <option value="Fire">Fire</option>
+                <option value="Medical">Medical</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        <div id="fireOptions" style="display: none;">
+            <div class="form-group">
+                <label for="acreage">Acreage:</label>
+                <input type="number" id="acreage" placeholder="Enter acreage">
+            </div>
+            <div class="form-group">
+                <label for="containment">Potential Containment:</label>
+                <input type="text" id="containment" placeholder="Enter potential containment">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="location">Location:</label>
+            <input type="text" id="location" placeholder="Enter location">
+        </div>
+        <div class="form-group">
+            <label for="priority">Priority Level:</label>
+            <select id="priority">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea id="description" rows="4" placeholder="Describe the emergency..."></textarea>
+        </div>
+        <div class="form-group">
+            <button onclick="submitReport()">Submit Report</button>
+        </div>
+        <div class="form-group">
+            <button onclick="toggleMDT()">Toggle MDT</button>
+        </div>
+        <div class="form-group">
+            <button onclick="clearReports()">Clear Reports</button>
+        </div>
+        <div id="mdt">
+            <div class="mdt-header">
+                <h2>MDT (Mobile Data Terminal)</h2>
+            </div>
+            <div class="mdt-content" id="mdtContent">
+                <p>No reports yet.</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        function showFireOptions() {
+            const reportType = document.getElementById('reportType').value;
+            const fireOptions = document.getElementById('fireOptions');
+            if (reportType === 'Fire') {
+                fireOptions.style.display = 'block';
+            } else {
+                fireOptions.style.display = 'none';
+            }
+        }
+
+        function submitReport() {
+            const reportType = document.getElementById('reportType').value;
+            const description = document.getElementById('description').value;
+            const location = document.getElementById('location').value;
+            const priority = document.getElementById('priority').value;
+            const timestamp = new Date().toLocaleString();
+            let additionalInfo = '';
+            if (reportType === 'Fire') {
+                const acreage = document.getElementById('acreage').value;
+                const containment = document.getElementById('containment').value;
+                additionalInfo = `<br>Acreage: ${acreage}<br>Potential Containment: ${containment}`;
+            }
+            const report = `<div class="report"><strong>Type:</strong> ${reportType}<br><strong>Description:</strong> ${description}<br><strong>Location:</strong> ${location}<br><strong>Priority:</strong> ${priority}<br><strong>Timestamp:</strong> ${timestamp}${additionalInfo}</div>`;
+            const mdtContent = document.getElementById('mdtContent');
+            mdtContent.innerHTML += report;
+            alert('Report Submitted');
+        }
+
+        function toggleMDT() {
+            const mdt = document.getElementById('mdt');
+            if (mdt.style.display === 'none') {
+                mdt.style.display = 'block';
+            } else {
+                mdt.style.display = 'none';
+            }
+        }
+
+        function clearReports() {
+            const mdtContent = document.getElementById('mdtContent');
+            mdtContent.innerHTML = '<p>No reports yet.</p>';
+        }
+    </script>
+</body>
+</html>
