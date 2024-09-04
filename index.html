@@ -3,275 +3,323 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emergency Reporting</title>
+    <title>Booking Service</title>
     <style>
-        /* Enhanced Typography */
         body {
-            font-family: 'Roboto', sans-serif; /* Modern font */
-            background: linear-gradient(135deg, #1a1a1a, #333); /* Gradient background */
-            color: #fff;
-            margin: 0;
-            padding: 0;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
-            line-height: 1.6; /* Improve readability */
-            transition: background 0.3s ease; /* Smooth transition for dark mode */
+          font-family: 'Arial', sans-serif;
+          margin: 0;
+          padding: 0;
+          background-color: #f4f4f4;
+          display: flex;
+          flex-direction: column;
+          min-height: 100vh;
+          color: #333;
         }
 
-        /* Header Styling */
         header {
-            background-color: #000080;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text shadow */
-            position: sticky; /* Make header sticky */
-            top: 0;
-            z-index: 1000;
-            transition: background-color 0.3s ease; /* Smooth transition for dark mode */
+          background-color: #333;
+          color: #fff;
+          padding: 1rem 0;
+          text-align: center;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        /* Container Styling */
-        .container {
-            padding: 20px;
-            border-radius: 10px; /* Add rounded corners */
-            background-color: rgba(255, 255, 255, 0.1); /* Add a subtle white background */
-            max-width: 1200px; /* Limit container width */
-            margin: auto; /* Center container */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
-            transition: background-color 0.3s ease; /* Smooth transition for dark mode */
+        header h1 {
+          margin: 0; /* Remove default margin */
         }
 
-        /* Card Layout */
-        .card {
-            background-color: #444;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 10px; /* Add rounded corners */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
-            transition: transform 0.3s ease; /* Smooth transition for hover effect */
+        main {
+          padding: 2rem;
+          flex: 1;
+          display: flex;
+          flex-direction: column; /* Stack elements vertically */
+          gap: 2rem;
         }
 
-        .card:hover {
-            transform: translateY(-10px); /* Lift card on hover */
+        section {
+          background-color: #fff;
+          padding: 2rem;
+          border-radius: 10px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+          width: 100%; /* Ensure full width */
         }
 
-        /* Form Group Styling */
-        .form-group {
-            margin-bottom: 15px;
+        section h2 {
+          margin-bottom: 1rem; /* Add space below section heading */
         }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
+        label {
+          display: block;
+          margin-top: 1rem;
+          font-weight: bold;
         }
 
-        .form-group input, .form-group textarea, .form-group select {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-            background-color: #333;
-            color: #fff;
-            border: 1px solid #555;
-            transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effect */
+        input, select {
+          width: 100%;
+          padding: 0.5rem;
+          margin-top: 0.5rem;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          font-size: 1rem; /* Increase input font size */
         }
 
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            background-color: #444; /* Change background on focus */
-            transform: scale(1.02); /* Slightly enlarge on focus */
+        button {
+          padding: 0.8rem 1.5rem;
+          background-color: #333;
+          color: #fff;
+          border: none;
+          cursor: pointer;
+          border-radius: 5px;
+          transition: background-color 0.3s ease;
+          font-weight: bold;
+          font-size: 1rem; /* Increase button font size */
         }
 
-        /* Button Styling */
-        .form-group button {
-            padding: 10px 15px;
-            background-color: #000080;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effect */
+        button:hover {
+          background-color: #555;
         }
 
-        .form-group button:hover {
-            background-color: #0000cd;
-            transform: scale(1.05); /* Slightly enlarge on hover */
+        #logs {
+          background-color: #fff;
+          padding: 2rem;
+          border-radius: 10px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+          max-height: 300px;
+          overflow-y: auto;
         }
 
-        /* MDT Styling */
-        #mdt {
-            display: none;
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #333;
-            border: 1px solid #555;
+        .hidden {
+          display: none;
         }
 
-        .mdt-header {
-            background-color: #000080;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
+        /* Form Styling */
+        form {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
         }
 
-        .mdt-content {
-            padding: 10px;
+        /* Admin Panel Styling */
+        #admin-panel {
+          display: flex;
+          flex-direction: column; /* Stack elements vertically */
+          gap: 1rem;
+          background-color: #f9f9f9;
+          padding: 1rem;
+          border-radius: 10px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        /* Report Styling */
-        .report {
-            background-color: #444;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #555;
-            border-radius: 5px; /* Add rounded corners */
+        #admin-panel label {
+          margin: 0;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 12px;
+        #ban-user, #kick-user {
+          margin-left: 0;
+          background-color: #e74c3c;
+          color: #fff;
+          border: none;
+          padding: 0.5rem 1rem;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
         }
 
-        ::-webkit-scrollbar-track {
-            background: #333;
+        #ban-user:hover, #kick-user:hover {
+          background-color: #c0392b;
         }
 
-        ::-webkit-scrollbar-thumb {
-            background-color: #555;
-            border-radius: 10px;
-            border: 3px solid #333;
+        /* Log Entries Styling */
+        #log-entries {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
         }
 
-        /* Dark Mode Toggle */
+        #log-entries div {
+          padding: 1rem;
+          background-color: #f0f0f0;
+          border-radius: 5px;
+          font-size: 0.9rem; /* Adjust font size for log entries */
+        }
+
+        /* Responsive Design (for smaller screens) */
+        @media (max-width: 768px) {
+          main {
+            flex-direction: column;
+          }
+          section {
+            margin-bottom: 2rem;
+          }
+        }
+
+        /* Additional Features */
+        /* 1. Hover Effect for Form Inputs */
+        input:focus, select:focus {
+          outline: none;
+          border-color: #333; /* Change border color on focus */
+          box-shadow: 0 0 5px rgba(51, 51, 51, 0.2); /* Add a subtle shadow */
+        }
+
+        /* 2. Success/Error Messages */
+        .success {
+          color: green; /* Green for success */
+        }
+
+        .error {
+          color: red; /* Red for error */
+        }
+
+        /* 3. Alternative Color Scheme (Optional) */
         .dark-mode {
-            background: linear-gradient(135deg, #333, #1a1a1a); /* Dark mode gradient */
+          background-color: #222;
+          color: #fff;
         }
 
         .dark-mode header {
-            background-color: #0000cd;
+          background-color: #111;
         }
 
-        .dark-mode .container {
-            background-color: rgba(0, 0, 0, 0.5);
+        .dark-mode section {
+          background-color: #333;
         }
 
-        .dark-mode .card {
-            background-color: #555;
+        .dark-mode button {
+          background-color: #fff;
+          color: #333;
         }
 
-        /* Media Queries for Responsive Design */
-        @media (max-width: 600px) {
-            .container {
-                padding: 10px;
-            }
-            .form-group input, .form-group textarea, .form-group select {
-                padding: 6px;
-            }
-            .form-group button {
-                padding: 8px 12px;
-            }
+        .dark-mode button:hover {
+          background-color: #eee;
         }
 
     </style>
 </head>
 <body>
     <header>
-        <h1>Emergency Reporting</h1>
+        <h1>Hotel Booking Service</h1>
     </header>
-    <div class="container">
-        <div class="form-group">
-            <label for="reportType">Report Type:</label>
-            <select id="reportType" onchange="showFireOptions()">
-                <option value="">Select Type</option>
-                <option value="Fire">Fire</option>
-                <option value="Medical">Medical</option>
-                <option value="Other">Other</option>
-            </select>
-        </div>
-        <div id="fireOptions" style="display: none;">
-            <div class="form-group">
-                <label for="acreage">Acreage:</label>
-                <input type="number" id="acreage" placeholder="Enter acreage">
-            </div>
-            <div class="form-group">
-                <label for="containment">Potential Containment:</label>
-                <input type="text" id="containment" placeholder="Enter potential containment">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="location">Location:</label>
-            <input type="text" id="location" placeholder="Enter location">
-        </div>
-        <div class="form-group">
-            <label for="priority">Priority Level:</label>
-            <select id="priority">
-                <option value="Low">Low</option>
-                <option value="Medium">Medium</option>
-                <option value="High">High</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="description">Description:</label>
-            <textarea id="description" rows="4" placeholder="Describe the emergency..."></textarea>
-        </div>
-        <div class="form-group">
-            <button onclick="submitReport()">Submit Report</button>
-        </div>
-        <div class="form-group">
-            <button onclick="toggleMDT()">Toggle MDT</button>
-        </div>
-        <div class="form-group">
-            <button onclick="clearReports()">Clear Reports</button>
-        </div>
-        <div id="mdt">
-            <div class="mdt-header">
-                <h2>MDT (Mobile Data Terminal)</h2>
-            </div>
-            <div class="mdt-content" id="mdtContent">
-                <p>No reports yet.</p>
-            </div>
-        </div>
-    </div>
+    <main>
+        <section id="user-auth">
+            <h2>User Authentication</h2>
+            <form id="register-form">
+                <label for="register-name">Name:</label>
+                <input type="text" id="register-name" name="register-name" required>
+                <label for="register-password">Password:</label>
+                <input type="password" id="register-password" name="register-password" required>
+                <button type="submit">Register</button>
+            </form>
+            <form id="login-form" class="hidden">
+                <label for="login-name">Name:</label>
+                <input type="text" id="login-name" name="login-name" required>
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" name="login-password" required>
+                <p class="error">Invalid password!</p>
+                <button type="submit">Login</button>
+            </form>
+        </section>
+        <section id="booking-form" class="hidden">
+            <h2>Book a Hotel</h2>
+            <form id="form">
+                <label for="hotel">Hotel:</label>
+                <input type="text" id="hotel" name="hotel" required>
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" required>
+                <label for="payment">Payment Method:</label>
+                <select id="payment" name="payment" required>
+                    <option value="credit-card">Credit Card</option>
+                    <option value="paypal">PayPal</option>
+                    <option value="bank-transfer">Bank Transfer</option>
+                </select>
+                <button type="submit">Book</button>
+            </form>
+        </section>
+        <section id="admin-panel" class="hidden">
+            <h2>Admin Panel</h2>
+            <label for="user">User:</label>
+            <input type="text" id="user" name="user" required>
+            <button id="ban-user">Ban User</button>
+            <button id="kick-user">Kick User</button>
+        </section>
+        <section id="logs">
+            <h2>Logs</h2>
+            <div id="log-entries"></div>
+        </section>
+    </main>
     <script>
-        function showFireOptions() {
-            const reportType = document.getElementById('reportType').value;
-            const fireOptions = document.getElementById('fireOptions');
-            if (reportType === 'Fire') {
-                fireOptions.style.display = 'block';
+        const users = [];
+        const rooms = ["101", "102", "103", "104", "105"];
+        const randomRooms = [];
+
+        for (let i = 0; i < 145; i++) {
+            const randomIndex = Math.floor(Math.random() * rooms.length);
+            randomRooms.push(rooms[randomIndex]);
+        }
+
+        console.log(randomRooms);
+
+        let currentRoomIndex = 0;
+
+        document.getElementById('register-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('register-name').value;
+            const password = document.getElementById('register-password').value;
+            users.push({ name, password });
+            logAction(`User ${name} registered`);
+            alert(`User ${name} registered`);
+            document.getElementById('register-form').classList.add('hidden');
+            document.getElementById('login-form').classList.remove('hidden');
+        });
+
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('login-name').value;
+            const password = document.getElementById('login-password').value;
+            const user = users.find(user => user.name === name && user.password === password);
+            if (user) {
+                logAction(`User ${name} logged in`);
+                alert(`User ${name} logged in`);
+                document.getElementById('login-form').classList.add('hidden');
+                document.getElementById('booking-form').classList.remove('hidden');
+                document.getElementById('admin-panel').classList.remove('hidden');
             } else {
-                fireOptions.style.display = 'none';
+                alert('Invalid credentials');
             }
+        });
+
+        document.getElementById('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const hotel = document.getElementById('hotel').value;
+            const date = document.getElementById('date').value;
+            const payment = document.getElementById('payment').value;
+            const room = assignRoom();
+            logAction(`Booking confirmed for room ${room} at ${hotel} on ${date} with payment method ${payment}`);
+            alert(`Booking confirmed for room ${room} at ${hotel} on ${date} with payment method ${payment}`);
+        });
+
+        document.getElementById('ban-user').addEventListener('click', function() {
+            const user = document.getElementById('user').value;
+            logAction(`User ${user} has been banned`);
+            alert(`User ${user} has been banned`);
+        });
+
+        document.getElementById('kick-user').addEventListener('click', function() {
+            const user = document.getElementById('user').value;
+            logAction(`User ${user} has been kicked`);
+            alert(`User ${user} has been kicked`);
+        });
+
+        function assignRoom() {
+            const room = rooms[currentRoomIndex];
+            currentRoomIndex = (currentRoomIndex + 1) % rooms.length;
+            return room;
         }
 
-        function submitReport() {
-            const reportType = document.getElementById('reportType').value;
-            const description = document.getElementById('description').value;
-            const location = document.getElementById('location').value;
-            const priority = document.getElementById('priority').value;
-            const timestamp = new Date().toLocaleString();
-            let additionalInfo = '';
-            if (reportType === 'Fire') {
-                const acreage = document.getElementById('acreage').value;
-                const containment = document.getElementById('containment').value;
-                additionalInfo = `<br>Acreage: ${acreage}<br>Potential Containment: ${containment}`;
-            }
-            const report = `<div class="report"><strong>Type:</strong> ${reportType}<br><strong>Description:</strong> ${description}<br><strong>Location:</strong> ${location}<br><strong>Priority:</strong> ${priority}<br><strong>Timestamp:</strong> ${timestamp}${additionalInfo}</div>`;
-            const mdtContent = document.getElementById('mdtContent');
-            mdtContent.innerHTML += report;
-            alert('Report Submitted');
-        }
-
-        function toggleMDT() {
-            const mdt = document.getElementById('mdt');
-            if (mdt.style.display === 'none') {
-                mdt.style.display = 'block';
-            } else {
-                mdt.style.display = 'none';
-            }
-        }
-
-        function clearReports() {
-            const mdtContent = document.getElementById('mdtContent');
-            mdtContent.innerHTML = '<p>No reports yet.</p>';
+        function logAction(action) {
+            const logEntries = document.getElementById('log-entries');
+            const logEntry = document.createElement('div');
+            logEntry.textContent = action;
+            logEntries.appendChild(logEntry);
         }
     </script>
 </body>
